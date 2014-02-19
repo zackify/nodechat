@@ -29,14 +29,13 @@ $(document).ready(function() {
             field.value = "";
         }
     };
-    function scrollBottom(){
-        $("html, body").animate({ scrollTop: $(document).height() }, "fast");
-    }
     $("#field").keyup(function(e) {
 
         if(e.keyCode == 13) {
             sendMessage();
-            scrollBottom();
+            $(window).scroll(function(){
+              $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+            });
 
         }
     });
