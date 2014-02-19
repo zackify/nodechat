@@ -1,0 +1,17 @@
+doctype
+html
+    head
+      meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0')
+      title= "Real time web chat"
+      script(src='/jquery.js')
+      script(src='/chat.js')
+      link(rel='stylesheet', href='/style.css')
+      script(src='/socket.io/socket.io.js')
+    body
+      #content(style='width: 100%; height: 70%; margin: 0 0 20px 0; border: none; overflow-y: scroll;')
+      .controls
+        | Name: 
+        input#name(style='width:50px;')
+        br
+        | Text: 
+        input#field(style='width:150px;')

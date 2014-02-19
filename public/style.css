@@ -1,0 +1,15 @@
+body{
+  background-color:black;
+  color:#00FF00;
+  font-family: COURIER;
+  font-size: 13px;
+  overflow:none;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+input{
+  background-color: black;
+  border: #00FF00 1px solid;
+  color: #00FF00
+}
