@@ -5,7 +5,6 @@ $(document).ready(function() {
     var field = document.getElementById("field");
     var content = document.getElementById("content");
     var name = document.getElementById("name");
- 
     socket.on('message', function (data) {
         if(data.message) {
             messages.push(data);
