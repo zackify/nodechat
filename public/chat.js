@@ -15,6 +15,9 @@ $(document).ready(function() {
                 html += messages[i].message + '<br />';
             }
             content.innerHTML = html;
+            $(window).scroll(function(){
+              $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+            });
         } else {
             console.log("There is a problem:", data);
         }
@@ -33,10 +36,6 @@ $(document).ready(function() {
 
         if(e.keyCode == 13) {
             sendMessage();
-            $(window).scroll(function(){
-              $("html, body").animate({ scrollTop: $(document).height() }, "fast");
-            });
-
         }
     });
  
