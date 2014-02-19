@@ -15,7 +15,6 @@ $(document).ready(function() {
                 html += messages[i].message + '<br />';
             }
             content.innerHTML = html;
-            content.scrollTop = content.scrollHeight;
         } else {
             console.log("There is a problem:", data);
         }
@@ -30,9 +29,15 @@ $(document).ready(function() {
             field.value = "";
         }
     };
+    function scrollBottom(){
+        $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+    }
     $("#field").keyup(function(e) {
+
         if(e.keyCode == 13) {
             sendMessage();
+            scrollBottom();
+
         }
     });
  
