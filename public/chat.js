@@ -5,6 +5,7 @@ $(document).ready(function() {
     var field = document.getElementById("field");
     var content = document.getElementById("content");
     var name = document.getElementById("name");
+    var nameWrapper = document.getElementById("nameWrapper");
     socket.on('message', function (data) {
         if(data.message) {
             messages.push(data);
@@ -29,6 +30,8 @@ $(document).ready(function() {
             var text = field.value;
             socket.emit('send', { message: text, username: name.value });
             field.value = "";
+            nameWrapper.style.display = 'none';
+
         }
     };
     $("#field").keyup(function(e) {

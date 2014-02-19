@@ -16,14 +16,15 @@ app.use(express.static(__dirname + '/public'));
 var io = require('socket.io').listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
-  socket.join('chatroom');
+  if(!socket.room) socket.room = 'chatroom';
+  socket.join(socket.room);
     
     socket.emit('message', { message: 'welcome (you can use <a href="http://daringfireball.net/projects/markdown/">markdown</a>). Want commands? do /commands. View the source <a href="https://github.com/zackify/nodechat">on my github</a>' });
-    io.sockets.emit('message', { message: 'New user joined' });
+    socket.broadcast.to(socket.room).emit('message', { message: 'New user joined' });
 
     socket.on('send', function (data) {
       socket.nickname = data.username;
-      var roster = io.sockets.clients('chatroom');
+      var roster = io.sockets.clients(socket.room);
       var users = roster.length +' users online now: '; 
       
       roster.forEach(function(client) {
@@ -35,11 +36,25 @@ io.sockets.on('connection', function (socket) {
         socket.emit('message', {username: "Server", message: users});
       }
       else if(message == '/commands'){
-        socket.emit('message', {username: "Server", message: "!whoishere"});
+        socket.emit('message', {username: "Server", message: "!whoishere, /room room to change rooms"});
+      }
+      else if(message.match(/\/room/)){
+        var match = message.match(/\/room (.*)/);
+        if(!match){
+          socket.emit('message', {username: "Server", message: "You're in the room: " + socket.room});
+        }
+        else{
+          socket.leave(socket.room);
+          socket.room = match[1];
+          socket.join(socket.room);
+          socket.broadcast.to(socket.room).emit('message', { message: data.username+' joined this room' });
+          socket.emit('message', {username: "Server", message: "Welcome to " + match[1]});
+        }
       }
       else{
         data.message = markdown.toHTML(message);
-        io.sockets.emit('message', data);
+        console.log(socket.room);
+        io.sockets.in(socket.room).emit('message', data);
       }
     });
 });
