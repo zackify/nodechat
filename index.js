@@ -44,6 +44,7 @@ io.sockets.on('connection', function (socket) {
           socket.emit('message', {username: "Server", message: "You're in the room: " + socket.room});
         }
         else{
+          socket.broadcast.to(socket.room).emit('message', { message: data.username+' left this room' });
           socket.leave(socket.room);
           socket.room = match[1];
           socket.join(socket.room);
