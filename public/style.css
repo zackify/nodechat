@@ -8,10 +8,11 @@ body{
 ::-webkit-scrollbar { 
     display: none; 
 }
-input{
+input, textarea{
   background-color: black;
   border: #00FF00 1px solid;
   color: #00FF00;
+  resize: none;
 }
 a{
   color: #00FF00;
