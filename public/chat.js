@@ -13,8 +13,14 @@ $(document).ready(function() {
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
-                html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
-                html += messages[i].message + '<br />';
+                if(messages[i].private == 1){
+                    html += '<p class="red"><b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
+                    html += messages[i].message + '</p><br />';
+                }
+                else{
+                    html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
+                    html += messages[i].message + '<br />';
+                }
                 if(value != messages[messages.length -1].username && messages[messages.length -1].username && messages[messages.length -1].username != 'Server') $('#sound')[0].play();
             }
             content.innerHTML = html;

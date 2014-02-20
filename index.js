@@ -14,16 +14,16 @@ app.get("/", function(req, res){
 });
 app.use(express.static(__dirname + '/public'));
 var io = require('socket.io').listen(app.listen(port));
-
 io.sockets.on('connection', function (socket) {
+
   if(!socket.room) socket.room = 'chatroom';
   socket.join(socket.room);
-    
     socket.emit('message', { message: 'welcome (you can use <a href="http://daringfireball.net/projects/markdown/">markdown</a>). Want commands? do /commands. View the source <a href="https://github.com/zackify/nodechat">on my github</a>' });
     socket.broadcast.to(socket.room).emit('message', { message: 'New user joined' });
 
     socket.on('send', function (data) {
       socket.nickname = data.username;
+      socket.join(data.username);
       var roster = io.sockets.clients(socket.room);
       var users = roster.length +' users online now: '; 
       
@@ -36,7 +36,15 @@ io.sockets.on('connection', function (socket) {
         socket.emit('message', {username: "Server", message: users});
       }
       else if(message == '/commands'){
-        socket.emit('message', {username: "Server", message: "!whoishere, /room room to change rooms"});
+        socket.emit('message', {username: "Server", message: "(<br /><p class=\"red\">!whoishere</p>) <br /> (<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately"});
+      }
+      else if(message.match(/\@(\w+)/)){
+        var match = message.match(/\@(\w+)/);
+        var message = message.replace(/\@(\w+)/,'');
+        if(match){
+          io.sockets.in(match[1]).emit('message', {username: data.username, message: message, private: 1});
+          socket.emit('message', {username: data.username, message: message, private: 1});
+        }
       }
       else if(message.match(/\/room/)){
         var match = message.match(/\/room (.*)/);
