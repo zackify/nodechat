@@ -32,13 +32,13 @@ io.sockets.on('connection', function (socket) {
       });
 
       var message = data.message.replace(/(<([^>]+)>)/ig,"");
-      if(message == '!whoishere'){
+      if(message.match(/!whoishere/)){
         socket.emit('message', {username: "Server", message: users});
       }
-      else if(message == '/clear'){
+      else if(message.match(/\/clear/)){
         socket.emit('clear', '');
       }
-      else if(message == '/commands'){
+      else if(message.match(/\/commands/)){
         socket.emit('message', {username: "Server", message: "<br />(<p class=\"red\">!whoishere</p>) <br />(<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately<br /> (<p class=\"red\">/clear</p>) to clear the feed"});
       }
       else if(message.match(/\@(\w+)/)){

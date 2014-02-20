@@ -43,6 +43,7 @@ $(document).ready(function() {
             alert("Please type your name!");
         } else {
             var text = field.value;
+            console.log(text);
             if(!value) value = name.value;
             socket.emit('send', { message: text, username: name.value });
             field.value = "";
