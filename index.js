@@ -42,8 +42,8 @@ io.sockets.on('connection', function (socket) {
         var match = message.match(/\@(\w+)/);
         var message = message.replace(/\@(\w+)/,'');
         if(match){
-          io.sockets.in(match[1]).emit('message', {username: data.username, message: message, private: 1});
-          socket.emit('message', {username: data.username, message: message, private: 1});
+          io.sockets.in(match[1]).emit('message', {username: data.username, message: message, private: match[1]});
+          socket.emit('message', {username: data.username, message: message, private: match[1]});
         }
       }
       else if(message.match(/\/room/)){

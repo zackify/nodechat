@@ -13,8 +13,13 @@ $(document).ready(function() {
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
-                if(messages[i].private == 1){
-                    html += '<p class="red"><b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
+                if(messages[i].private){
+                    if(messages[i].private != name.value){
+                        html += '<p class="red"><b>Message to ' + messages[i].private + ': </b>';
+                    }
+                    else{
+                        html += '<p class="red"><b>Message from ' + messages[i].username + ': </b>';
+                    }
                     html += messages[i].message + '</p><br />';
                 }
                 else{
