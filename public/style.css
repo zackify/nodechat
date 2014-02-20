@@ -27,3 +27,6 @@ strong{
   font-size: 13px;
   font-weight: bold;
 }
+#sound{
+  display: none;
+}
