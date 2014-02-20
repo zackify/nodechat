@@ -18,9 +18,6 @@ $(document).ready(function() {
                 if(value != messages[messages.length -1].username && messages[messages.length -1].username && messages[messages.length -1].username != 'Server') $('#sound')[0].play();
             }
             content.innerHTML = html;
-            $(window).scroll(function(){
-              $("html, body").animate({ scrollTop: $(document).height() }, "fast");
-            });
         } else {
             console.log("There is a problem:", data);
         }
