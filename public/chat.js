@@ -33,7 +33,9 @@ $(document).ready(function() {
             console.log("There is a problem:", data);
         }
     });
- 
+    socket.on('clear', function (data) {
+        content.innerHTML = '';
+    });
     sendMessage = function() {
         if(name.value == "" || name.value == "Server") {
             alert("Please type your name!");

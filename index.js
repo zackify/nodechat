@@ -35,8 +35,11 @@ io.sockets.on('connection', function (socket) {
       if(message == '!whoishere'){
         socket.emit('message', {username: "Server", message: users});
       }
+      else if(message == '/clear'){
+        socket.emit('clear', '');
+      }
       else if(message == '/commands'){
-        socket.emit('message', {username: "Server", message: "<br />(<p class=\"red\">!whoishere</p>) <br /> (<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately"});
+        socket.emit('message', {username: "Server", message: "<br />(<p class=\"red\">!whoishere</p>) <br />(<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately<br /> (<p class=\"red\">/clear</p>) to clear the feed"});
       }
       else if(message.match(/\@(\w+)/)){
         var match = message.match(/\@(\w+)/);
