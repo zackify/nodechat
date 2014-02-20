@@ -29,12 +29,14 @@ $(document).ready(function() {
                 if(value != messages[messages.length -1].username && messages[messages.length -1].username && messages[messages.length -1].username != 'Server') $('#sound')[0].play();
             }
             content.innerHTML = html;
+            content.scrollTop = content.scrollHeight;
         } else {
             console.log("There is a problem:", data);
         }
     });
     socket.on('clear', function (data) {
         content.innerHTML = '';
+        messages = [];
     });
     sendMessage = function() {
         if(name.value == "" || name.value == "Server") {

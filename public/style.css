@@ -33,3 +33,15 @@ strong{
 .red{
   color: red;
 }
+@media only screen 
+and (max-width : 420px) {
+  #content{
+    height: 100px;
+  }
+}
+@media only screen 
+and (min-width : 420px) {
+  #content{
+    height: 500px;
+  }
+}
