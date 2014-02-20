@@ -20,6 +20,7 @@ io.sockets.on('connection', function (socket) {
   socket.join(socket.room);
     
     socket.emit('message', { message: 'welcome (you can use <a href="http://daringfireball.net/projects/markdown/">markdown</a>). Want commands? do /commands. View the source <a href="https://github.com/zackify/nodechat">on my github</a>' });
+    socket.emit('message', { message: 'Data is only stored locally'});
     socket.broadcast.to(socket.room).emit('message', { message: 'New user joined' });
 
     socket.on('send', function (data) {
