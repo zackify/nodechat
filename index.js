@@ -36,7 +36,7 @@ io.sockets.on('connection', function (socket) {
         socket.emit('message', {username: "Server", message: users});
       }
       else if(message == '/commands'){
-        socket.emit('message', {username: "Server", message: "(<br /><p class=\"red\">!whoishere</p>) <br /> (<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately"});
+        socket.emit('message', {username: "Server", message: "<br />(<p class=\"red\">!whoishere</p>) <br /> (<p class=\"red\">/room roomname</p>) to change rooms <br /> (<p class=\"red\">@username text</p>) to mention privately"});
       }
       else if(message.match(/\@(\w+)/)){
         var match = message.match(/\@(\w+)/);

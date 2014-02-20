@@ -30,7 +30,7 @@ $(document).ready(function() {
     });
  
     sendMessage = function() {
-        if(name.value == "") {
+        if(name.value == "" || name.value == "Server") {
             alert("Please type your name!");
         } else {
             var text = field.value;
