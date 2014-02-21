@@ -20,6 +20,7 @@ $(document).ready(function() {
     }
     var messages = [];
     var socket = io.connect(location.origin.replace(/^http/, 'ws'));
+    socket.emit('join', { username: name });
     var field = document.getElementById("field");
     var content = document.getElementById("content");
     var sound = document.getElementById("sound");
