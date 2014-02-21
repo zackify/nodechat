@@ -8,12 +8,6 @@ body{
 ::-webkit-scrollbar { 
     display: none; 
 }
-input, textarea{
-  background-color: black;
-  border: #00FF00 1px solid;
-  color: #00FF00;
-  resize: none;
-}
 a{
   color: #00FF00;
   text-decoration: underline;
@@ -39,10 +33,23 @@ and (max-width : 420px) {
   #content{
     height: 100px;
   }
+  textarea{
+  background-color: black;
+  border: #00FF00 1px solid;
+  color: #00FF00;
+  resize: none;
+  width: 100%;
+}
 }
 @media only screen 
 and (min-width : 420px) {
   #content{
     height: 500px;
   }
+  textarea{
+  background-color: black;
+  border: #00FF00 1px solid;
+  color: #00FF00;
+  resize: none;
+}
 }
