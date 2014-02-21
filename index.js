@@ -15,12 +15,19 @@ app.get("/connect", function(req, res){
 app.use(express.static(__dirname + '/public'));
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function (socket) {
+  
   socket.on('join', function (data) {
     console.log(data.username);
     socket.nickname = data.username;
     socket.broadcast.to(socket.room).emit('message', { message: socket.nickname+' joined' });
 
   });
+  socket.on('disconnect', function () {
+
+      socket.broadcast.to(socket.room).emit('message', { message: socket.nickname+' left' });
+
+  });
+
   if(!socket.room) socket.room = 'chatroom';
   socket.join(socket.room);
     socket.emit('message', { message: 'welcome (you can use <a href="http://daringfireball.net/projects/markdown/">markdown</a>). Want commands? do /commands. View the source <a href="https://github.com/zackify/nodechat">on my github</a>' });
