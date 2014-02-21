@@ -9,7 +9,7 @@ app.get("/", function(req, res){
     res.render("page");
 });
 
-app.get("/", function(req, res){
+app.get("/connect", function(req, res){
     res.send("It works!");
 });
 app.use(express.static(__dirname + '/public'));
