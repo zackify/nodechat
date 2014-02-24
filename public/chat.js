@@ -63,7 +63,7 @@ $(document).ready(function() {
                 else{
                     html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
                     if(messages[i].image){
-                        html += '<img src="'+ messages[i].image + '" />';
+                        html += '<img src="'+ messages[i].image + '" /> <br />';
                     }
                     else{
                         html += messages[i].message + '<br />';
