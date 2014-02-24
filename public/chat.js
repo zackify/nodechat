@@ -1,4 +1,24 @@
 $(document).ready(function() {
+    $('#imagefile').on('change', function(e){
+    //Get the first (and only one) file element
+    //that is included in the original event
+    var file = e.originalEvent.target.files[0],
+        reader = new FileReader();
+    //When the file has been read...
+    reader.onload = function(evt){
+        //Because of how the file was read,
+        //evt.target.result contains the image in base64 format
+        //Nothing special, just creates an img element
+        //and appends it to the DOM so my UI shows
+        //that I posted an image.
+        //send the image via Socket.io
+        console.log(evt.target.result);
+        socket.emit('image', {username: name, image: evt.target.result});
+    };
+    //And now, read the image and base64
+    reader.readAsDataURL(file);  
+});
+
     function getQueryVariable(variable)
     {
            var query = window.location.search.substring(1);
@@ -27,7 +47,7 @@ $(document).ready(function() {
     var nameWrapper = document.getElementById("nameWrapper");
     var value;
     socket.on('message', function (data) {
-        if(data.message) {
+        if(data.message || data.image) {
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
@@ -42,7 +62,12 @@ $(document).ready(function() {
                 }
                 else{
                     html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
-                    html += messages[i].message + '<br />';
+                    if(messages[i].image){
+                        html += '<img src="'+ messages[i].image + '" />';
+                    }
+                    else{
+                        html += messages[i].message + '<br />';
+                    }
                 }
                 if(value != messages[messages.length -1].username && messages[messages.length -1].username && messages[messages.length -1].username != 'Server') $('#sound')[0].play();
             }

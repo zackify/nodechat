@@ -16,6 +16,9 @@ app.use(express.static(__dirname + '/public'));
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function (socket) {
   
+  socket.on('image', function (data) {
+    io.sockets.in(socket.room).emit('message', data);
+  });
   socket.on('join', function (data) {
     console.log(data.username);
     socket.nickname = data.username;
